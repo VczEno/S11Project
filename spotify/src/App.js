@@ -8,6 +8,9 @@ import { Player } from './components/Player';
 import { ArtistPage } from './pages/ArtistPage';
 import { AlbumPage } from './pages/AlbumPage';
 import {Container, Row} from 'react-bootstrap'
+import YourLibrary from './pages/YourLibrary';
+
+import SearchResult from './pages/SearchResult';
 
 
 
@@ -15,18 +18,19 @@ function App() {
 return (
   <> 
     <BrowserRouter> 
-    <Container fluid>
-    <Row>
-    <Nav/>
+    <Container>
+    
     <Sidebar/>
+    <Nav/> 
     <Routes>
       <Route path='/' element={<Homepage />} />
-      <Route path='/artist/:ID' element={<ArtistPage />} />
-      <Route path='/album/:ID' element={<AlbumPage />} />
+      <Route path='/:artistName/:id' element={<ArtistPage />} />
+      <Route path='/album/:id' element={<AlbumPage />} />
+      <Route path='/yourLibrary' element={<YourLibrary />} />
+      <Route path='/searchResult' element={<SearchResult/>} />
     </Routes>
-   </Row>
-   </Container>
-   <Player/>
+    <Player/> 
+    </Container>
     </BrowserRouter>
    
   </>

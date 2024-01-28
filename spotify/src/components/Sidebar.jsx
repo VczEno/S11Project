@@ -1,7 +1,42 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Logo from '../assets/Spotify_Logo.png'
+import { Link } from 'react-router-dom'
+import { FaHome } from "react-icons/fa";
+import { FaBookOpen } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import axios from 'axios';
+import { getSearchData } from '../action';
 
 export const Sidebar = () => {
+
+const [query, setQuery] = useState('')
+const searchRes = useSelector(state => state.search)
+const [loading, setLoading] = useState(false)
+const [errMsg, setErrMsg] = useState('')
+const dispatch=useDispatch()
+const endpoint='https://striveschool-api.herokuapp.com/api/deezer/search?q='+query
+
+/* useEffect(() => {
+    setErrMsg('')
+    setLoading(true)
+    axios.get(endpoint)
+    .then(res => {
+       console.log(res.data.data)
+       }).catch(error => {
+        console.log(error)
+        setErrMsg(error.message)
+      }).finally(()=> setLoading(false))
+  }, [])   */
+
+  useEffect(() => {
+console.log(query)
+  }, [query])
+
+
+
+/* nel render fare map dei risultati  */
+
     return (
 
         <div className="col-2">
@@ -10,14 +45,14 @@ export const Sidebar = () => {
                 id="sidebar"
             >
                 <div className="nav-container">
-                    <a className="navbar-brand" href="index.html">
+                    <Link className="navbar-brand" to='/'>
                         <img
                             src={Logo}
                             alt="Spotify_Logo"
                             width="131"
                             height="40"
                         />
-                    </a>
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -32,16 +67,16 @@ export const Sidebar = () => {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav">
                             <ul>
-                                <li>
-                                    <a className="nav-item nav-link" href="index.html">
-                                        <i className="fas fa-home fa-lg"></i>&nbsp; Home
-                                    </a>
+                                <li> {/* INSERIRE ICONE HOME E LIBRARY */}
+                                    <Link className="nav-item nav-link" to='/' >
+                                        <FaHome /> Home
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a className="nav-item nav-link" href="#">
-                                        <i className="fas fa-book-open fa-lg"></i>&nbsp; YourLibrary 
-                                    </a>
-                                    
+                                    <Link className="nav-item nav-link" to='/yourLibrary'>
+                                        <FaBookOpen /> YourLibrary
+                                    </Link>
+
                                 </li>
                                 <li>
                                     <div className="input-group mt-3">
@@ -52,19 +87,20 @@ export const Sidebar = () => {
                                             placeholder="Search"
                                             aria-label="Search"
                                             aria-describedby="basic-addon2"
+                                            onChange={(e)=> setQuery(e.target.value)}
                                         />
                                         <div
                                             className="input-group-append"
-                                            /* style={{margin-bottom: 4 + %}} */
+                                        /* style={{margin-bottom: 4 + %}} */
                                         >
-                                            <button
+                                            <Link to='/searchResult'
                                                 className="btn btn-outline-secondary btn-sm"
                                                 type="button"
                                                 id="button-addon1"
-                                                onClick="search()"
+                                                onClick={() => dispatch(getSearchData(endpoint))}
                                             >
                                                 GO
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </li>
@@ -74,12 +110,12 @@ export const Sidebar = () => {
                 </div>
 
                 <div className="nav-btn">
-                    <button className="btn signup-btn" type="button">Sign Up</button>
-                    <button className="btn login-btn" type="button">Login</button>
-                    <a href="#">Cookie Policy</a> |
-                    <a href="#"> Privacy</a>
+                    <Link className="btn signup-btn">Sign Up</Link>
+                    <Link className="btn login-btn" >Login</Link>
+                    <Link >Cookie Policy</Link> |
+                    <Link > Privacy</Link>
                 </div>
             </nav>
         </div>
-    )  
+    )
 }

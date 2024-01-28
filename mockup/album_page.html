@@ -217,12 +217,13 @@
               headers,
             }
           );
-
+            console.log(response)
           let imgContainer = document.querySelector("#img-container"); // gets a reference to the image container
           let trackList = document.querySelector("#trackList"); // gets a reference to the tracklist div
 
           if (response.ok) {
-            let album = await response.json(); // transforms the response into a JSON
+            let album = await response.json();
+            console.log(album) // transforms the response into a JSON
             imgContainer.innerHTML = albumArt(album); // creates the albumArt for the img-container
             for (let i = 0; i < album.tracks.data.length; i++) {
               let div = document.createElement("div");

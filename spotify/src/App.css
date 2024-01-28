@@ -89,7 +89,7 @@ ul {
 /* BOTTOM PLAYER SECTION*/
 
 .bg-container {
-  height: 5.5rem;
+ 
   background-color: #282828;
 }
 
@@ -226,10 +226,14 @@ ul {
   color: white;
 }
 
-.mainPage img {
+.albumPage img {
   width: 200px;
 }
 
 .input-group-append {
   margin-bottom: 4%!important
+}
+
+.trackInfo {
+  color: white;
 }
